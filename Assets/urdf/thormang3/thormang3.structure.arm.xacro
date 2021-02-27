@@ -1,0 +1,711 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">	
+
+    <xacro:property name="pi" value="3.141592654" />
+    <xacro:property name="offset" value="0.0" />
+
+    <xacro:macro name="thormang3_l_arm" params="parent">
+
+	<!-- left shoulder pitch 1 joint -->
+        <joint name="l_arm_sh_p1" type="revolute">
+          <axis xyz="0 1 0" />		
+          <origin xyz="0.0 ${0.152-offset} 0.16" rpy="0 0 0"/>
+          <parent link="${parent}"/>
+          <child link="l_arm_sh_p1_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.5}" upper="${pi*0.5}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="l_arm_sh_p1" />
+
+	<!-- left shoulder pitch 1 link -->
+        <link name="l_arm_sh_p1_link">
+          <!--
+    	  <collision>
+      	    <origin xyz="0 0.03 -0.01" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.15 0.1 0.09" />
+      	    </geometry>
+    	  </collision>
+          -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_l_arm_sh_p1_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="-0.003 0.020 -0.005" rpy="0 0 0"/>
+      	    <mass value="0.194"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" /> 
+      	    <!--<inertia ixx="0.00018" ixy="0.0" ixz="0.0" iyy="0.00058" iyz="0.00004" izz="0.00057" />--> 
+    	  </inertial>
+        </link>
+
+	<!-- left shoulder roll joint -->
+        <joint name="l_arm_sh_r" type="revolute">
+          <axis xyz="-1 0 0" />		
+          <origin xyz="0.057 0.060 -0.039" rpy="0 0 0"/>
+          <parent link="l_arm_sh_p1_link"/>
+          <child link="l_arm_sh_r_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.5}" upper="${pi*0.5}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="l_arm_sh_r" />
+
+	<!-- left shoulder roll link -->
+        <link name="l_arm_sh_r_link">
+          <!--
+    	  <collision>
+      	    <origin xyz="-0.057 0 0" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.14 0.09 0.09" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_l_arm_sh_r_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="-0.060 0.002 0.000" rpy="0 0 0"/>
+      	    <mass value="0.875"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+      	    <!--<inertia ixx="0.00043" ixy="0.0" ixz="0.0" iyy="0.00112" iyz="0.0" izz="0.00113" />--> 
+    	  </inertial>
+        </link>
+
+	<!-- left shoulder pitch 2 joint -->
+        <joint name="l_arm_sh_p2" type="revolute">
+          <axis xyz="0 1 0" />		
+          <origin xyz="-0.057 0.033 0.0" rpy="0 0 0"/>
+          <parent link="l_arm_sh_r_link"/>
+          <child link="l_arm_sh_p2_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.5}" upper="${pi*0.5}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="l_arm_sh_p2" />
+
+	<!-- left shoulder pitch2 link -->
+        <link name="l_arm_sh_p2_link">
+            <!--
+    	  <collision>
+      	    <origin xyz="0.01 0.11 0" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.1 0.24 0.13" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_l_arm_sh_p2_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="0.000 0.073 0.000" rpy="0 0 0"/>
+      	    <mass value="1.122"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" /> 
+      	    <!--<inertia ixx="0.00277" ixy="-0.00002" ixz="-0.00001" iyy="0.00090" iyz="-0.00004" izz="0.00255" />--> 
+    	  </inertial>
+        </link>
+
+	<!-- left elbow yaw joint -->
+        <joint name="l_arm_el_y" type="revolute">
+          <axis xyz="0 0 -1" />		
+          <origin xyz="0.030 0.187 0.057" rpy="0 0 0"/>
+          <parent link="l_arm_sh_p2_link"/>
+          <child link="l_arm_el_y_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.4}" upper="${pi*0.4}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="l_arm_el_y" />
+
+	<!-- left elbow yaw link -->
+        <link name="l_arm_el_y_link">
+            <!--
+    	  <collision>
+      	    <origin xyz="0.08 0.01 -0.057" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.17 0.1 0.08" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_l_arm_el_y_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="0.042 0.012 -0.058" rpy="0 0 0"/>
+      	    <mass value="1.357"/>
+	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" /> 
+            <!--<inertia ixx="0.00152" ixy="-0.00100" ixz="-0.00006" iyy="0.00560" iyz="-0.00002" izz="0.00528" />-->
+    	  </inertial>
+        </link>
+
+	<!-- left wrist roll joint -->
+        <joint name="l_arm_wr_r" type="revolute">
+          <axis xyz="1 0 0" />		
+          <origin xyz="0.171 0.030 -0.057" rpy="0 0 0"/>
+          <parent link="l_arm_el_y_link"/>
+          <child link="l_arm_wr_r_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.9}" upper="${pi*0.9}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="l_arm_wr_r" />
+
+	<!-- left wrist roll link -->
+        <link name="l_arm_wr_r_link">
+            <!--
+    	  <collision>
+      	    <origin xyz="0.02 0 0" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.05 0.05 0.11" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_l_arm_wr_r_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="0.010 0.000 0.002" rpy="0 0 0"/>
+      	    <mass value="0.087"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />           
+            <!--<inertia ixx="0.00012" ixy="0.0" ixz="0.0" iyy="0.00011" iyz="0.0" izz="0.00003" />-->
+    	  </inertial>
+        </link>
+
+	<!-- left wrist yaw joint -->
+        <joint name="l_arm_wr_y" type="revolute">
+          <axis xyz="0 0 -1" />		
+          <origin xyz="0.039 0.0 0.045" rpy="0 0 0"/>
+          <parent link="l_arm_wr_r_link"/>
+          <child link="l_arm_wr_y_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.45}" upper="${pi*0.45}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="l_arm_wr_y" />
+
+	<!-- left wrist yaw link -->
+        <link name="l_arm_wr_y_link">
+            <!--
+    	  <collision>
+      	    <origin xyz="0.03 0 -0.045" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.09 0.1 0.09" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_l_arm_wr_y_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="0.023 0.001 -0.046" rpy="0 0 0"/>
+      	    <mass value="0.768"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <!--<inertia ixx="0.00059" ixy="-0.00002" ixz="-0.00002" iyy="0.00078" iyz="0.0" izz="0.00078" />--> 
+    	  </inertial>
+        </link>
+
+	<!-- left wrist pitch joint -->
+        <joint name="l_arm_wr_p" type="revolute">
+          <axis xyz="0 -1 0" />		
+          <origin xyz="0.045 -0.045 -0.045" rpy="0 0 0"/>
+          <parent link="l_arm_wr_y_link"/>
+          <child link="l_arm_wr_p_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.45}" upper="${pi*0.45}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="l_arm_wr_p" />
+
+	<!-- left wrist pitch link -->
+        <link name="l_arm_wr_p_link">
+            <!--
+    	  <collision>
+      	    <origin xyz="0.07 0.045 0" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.07 0.1 0.06" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_l_arm_wr_p_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="0.065 0.045 0.000" rpy="0 0 0"/>
+      	    <mass value="0.565"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" /> 
+            <!--<inertia ixx="0.00047" ixy="-0.00001" ixz="0.0" iyy="0.00042" iyz="0.0" izz="0.00058" />-->
+    	  </inertial>
+        </link>
+
+	<!-- left arm gripper joint -->
+        <joint name="l_arm_grip" type="revolute">
+          <axis xyz="0 0 -1" />		
+          <origin xyz="0.0877 0.0583 0.0" rpy="0 0 ${4.0*pi/18.0}"/>
+          <parent link="l_arm_wr_p_link"/>
+          <child link="l_arm_grip_link"/>
+          <limit velocity="6.5" effort="1000" lower="0.0" upper="${65.0*pi/180.0}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="l_arm_grip" />
+
+	<!-- left arm gripper link -->
+        <link name="l_arm_grip_link">
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_l_arm_grip_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="0.031 0.014 0.000" rpy="0 0 0"/>
+      	    <mass value="0.013"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" /> 
+            <!--<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001" />-->
+    	  </inertial>
+        </link>
+
+	<!-- left arm gripper 1 joint -->
+        <joint name="l_arm_grip_1" type="revolute">
+          <axis xyz="0 0 1" />		
+          <origin xyz="0.0877 0.0317 0.0" rpy="0 0 ${-4.0*pi/18.0}"/>
+          <parent link="l_arm_wr_p_link"/>
+          <child link="l_arm_grip_1_link"/>
+          <limit velocity="6.5" effort="1000" lower="0.0" upper="${65.0*pi/180.0}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="l_arm_grip_1" />
+
+	<!-- left arm gripper 1 link -->
+        <link name="l_arm_grip_1_link">
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_l_arm_grip_1_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="0.031 -0.014 0.000" rpy="0 0 0"/>
+      	    <mass value="0.013"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <!--<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001" />--> 
+    	  </inertial>
+        </link>
+
+	<!-- left end effector -->
+        <joint name="l_arm_end" type="fixed">
+          <origin xyz="0.145 0.045 0" rpy="0 0 0"/>
+          <parent link="l_arm_wr_p_link"/>
+          <child link="l_arm_end_link"/>
+        </joint> 
+
+	<!-- left end effector link -->
+        <link name="l_arm_end_link">
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.01 0.01 0.01" />
+      	    </geometry>
+      	    <material name="red"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+      	    <mass value="0.001"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+    	  </inertial>
+        </link>
+
+    </xacro:macro>
+
+    <xacro:macro name="thormang3_r_arm" params="parent">
+
+	<!-- right shoulder pitch 1 joint -->
+        <joint name="r_arm_sh_p1" type="revolute">
+          <axis xyz="0 -1 0" />		
+          <origin xyz="0.0 ${-0.152+offset} 0.16" rpy="0 0 0"/>
+          <parent link="${parent}"/>
+          <child link="r_arm_sh_p1_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.5}" upper="${pi*0.5}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="r_arm_sh_p1" />
+
+	<!-- right shoulder pitch 1 link -->
+        <link name="r_arm_sh_p1_link">
+            <!--
+    	  <collision>
+      	    <origin xyz="0 -0.03 -0.01" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.15 0.1 0.09" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_r_arm_sh_p1_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="-0.003 -0.020 -0.005" rpy="0 0 0"/>
+      	    <mass value="0.194"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <!--<inertia ixx="0.00018" ixy="0.0" ixz="0.0" iyy="0.00058" iyz="-0.00004" izz="0.00057" />-->
+    	  </inertial>
+        </link>
+
+	<!-- right shoulder roll joint -->
+        <joint name="r_arm_sh_r" type="revolute">
+          <axis xyz="-1 0 0" />		
+          <origin xyz="0.057 -0.060 -0.039" rpy="0 0 0"/>
+          <parent link="r_arm_sh_p1_link"/>
+          <child link="r_arm_sh_r_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.5}" upper="${pi*0.5}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="r_arm_sh_r" />
+
+	<!-- right shoulder roll link -->
+        <link name="r_arm_sh_r_link">
+            <!--
+    	  <collision>
+      	    <origin xyz="-0.057 0 0" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.14 0.09 0.09" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_r_arm_sh_r_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="-0.060 -0.002 0.000" rpy="0 0 0"/>
+      	    <mass value="0.875"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <!--<inertia ixx="0.00043" ixy="0.0" ixz="0.0" iyy="0.00112" iyz="0.0" izz="0.00113" />--> 
+    	  </inertial>
+        </link>
+
+	<!-- right shoulder pitch 2 joint -->
+        <joint name="r_arm_sh_p2" type="revolute">
+          <axis xyz="0 -1 0" />		
+          <origin xyz="-0.057 -0.033 0.0" rpy="0 0 0"/>
+          <parent link="r_arm_sh_r_link"/>
+          <child link="r_arm_sh_p2_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.5}" upper="${pi*0.5}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="r_arm_sh_p2" />
+
+	<!-- right shoulder pitch2 link -->
+        <link name="r_arm_sh_p2_link">
+            <!--
+    	  <collision>
+      	    <origin xyz="0.01 -0.11 0" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.1 0.24 0.13" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_r_arm_sh_p2_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="0.000 -0.073 0.000" rpy="0 0 0"/>
+      	    <mass value="1.122"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <!--<inertia ixx="0.00277" ixy="0.00002" ixz="-0.00001" iyy="0.00090" iyz="0.00004" izz="0.00255" />--> 
+    	  </inertial>
+        </link>
+
+	<!-- right elbow yaw joint -->
+        <joint name="r_arm_el_y" type="revolute">
+          <axis xyz="0 0 -1" />		
+          <origin xyz="0.030 -0.187 0.057" rpy="0 0 0"/>
+          <parent link="r_arm_sh_p2_link"/>
+          <child link="r_arm_el_y_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.4}" upper="${pi*0.4}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="r_arm_el_y" />
+
+	<!-- right elbow yaw link -->
+        <link name="r_arm_el_y_link">
+            <!--
+    	  <collision>
+      	    <origin xyz="0.08 -0.01 -0.057" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.17 0.1 0.08" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_r_arm_el_y_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="0.042 -0.012 -0.058" rpy="0 0 0"/>
+      	    <mass value="1.357"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <!--<inertia ixx="0.00152" ixy="0.00100" ixz="-0.00006" iyy="0.00560" iyz="0.00002" izz="0.00528" />-->
+    	  </inertial>
+        </link>
+
+	<!-- right wrist roll joint -->
+        <joint name="r_arm_wr_r" type="revolute">
+          <axis xyz="1 0 0" />		
+          <origin xyz="0.171 -0.030 -0.057" rpy="0 0 0"/>
+          <parent link="r_arm_el_y_link"/>
+          <child link="r_arm_wr_r_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.9}" upper="${pi*0.9}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="r_arm_wr_r" />
+
+	<!-- right wrist roll link -->
+        <link name="r_arm_wr_r_link">
+            <!--
+    	  <collision>
+      	    <origin xyz="0.02 0 0" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.05 0.05 0.11" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_r_arm_wr_r_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="0.010 0.000 -0.002" rpy="0 0 0"/>
+      	    <mass value="0.087"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <!--<inertia ixx="0.00012" ixy="0.0" ixz="0.0" iyy="0.00011" iyz="0.0" izz="0.00003" />-->
+    	  </inertial>
+        </link>
+
+	<!-- right wrist yaw joint -->
+        <joint name="r_arm_wr_y" type="revolute">
+          <axis xyz="0 0 -1" />		
+          <origin xyz="0.039 0.0 0.045" rpy="0 0 0"/>
+          <parent link="r_arm_wr_r_link"/>
+          <child link="r_arm_wr_y_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.45}" upper="${pi*0.45}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="r_arm_wr_y" />
+
+	<!-- right wrist yaw link -->
+        <link name="r_arm_wr_y_link">
+            <!--
+    	  <collision>
+      	    <origin xyz="0.03 0 -0.045" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.09 0.1 0.09" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_r_arm_wr_y_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="0.023 -0.001 -0.046" rpy="0 0 0"/>
+      	    <mass value="0.768"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <!--<inertia ixx="0.00059" ixy="0.00002" ixz="-0.00002" iyy="0.00078" iyz="0.0" izz="0.00078" />-->
+    	  </inertial>
+        </link>
+
+	<!-- right wrist pitch joint -->
+        <joint name="r_arm_wr_p" type="revolute">
+          <axis xyz="0 1 0" />		
+          <origin xyz="0.045 0.045 -0.045" rpy="0 0 0"/>
+          <parent link="r_arm_wr_y_link"/>
+          <child link="r_arm_wr_p_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.45}" upper="${pi*0.45}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="r_arm_wr_p" />
+
+	<!-- right wrist pitch link -->
+        <link name="r_arm_wr_p_link">
+            <!--
+    	  <collision>
+      	    <origin xyz="0.07 -0.045 0" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.07 0.1 0.06" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_r_arm_wr_p_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="0.065 -0.045 0.000" rpy="0 0 0"/>
+      	    <mass value="0.565"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <!--<inertia ixx="0.00047" ixy="0.00001" ixz="0.0" iyy="0.00042" iyz="0.0" izz="0.00058" />-->
+    	  </inertial>
+        </link>
+	
+	<!-- right arm gripper joint -->
+        <joint name="r_arm_grip" type="revolute">
+          <axis xyz="0 0 1" />		
+          <origin xyz="0.0877 -0.0583 0.0" rpy="0 0 ${-4.0*pi/18.0}"/>
+          <parent link="r_arm_wr_p_link"/>
+          <child link="r_arm_grip_link"/>
+          <limit velocity="6.5" effort="1000" lower="0.0" upper="${65.0*pi/180.0}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="r_arm_grip" />
+
+	<!-- right arm gripper link -->
+        <link name="r_arm_grip_link">
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_r_arm_grip_1_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="0.031 -0.014 0.000" rpy="0 0 0"/>
+      	    <mass value="0.013"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <!--<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001" />-->
+    	  </inertial>
+        </link>
+
+	<!-- right arm gripper 1 joint -->
+        <joint name="r_arm_grip_1" type="revolute">
+          <axis xyz="0 0 -1" />		
+          <origin xyz="0.0877 -0.0317 0.0" rpy="0 0 ${4.0*pi/18.0}"/>
+          <parent link="r_arm_wr_p_link"/>
+          <child link="r_arm_grip_1_link"/>
+          <limit velocity="6.5" effort="1000" lower="0.0" upper="${65.0*pi/180.0}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="r_arm_grip_1" />
+
+	<!-- right arm gripper link -->
+        <link name="r_arm_grip_1_link">
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_r_arm_grip_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="0.031 0.014 0.000" rpy="0 0 0"/>
+      	    <mass value="0.013"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <!--<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001" />-->
+    	  </inertial>
+        </link>
+
+	<!-- right end effector -->
+        <joint name="r_arm_end" type="fixed">
+          <origin xyz="0.145 -0.045 0" rpy="0 0 0"/>
+          <parent link="r_arm_wr_p_link"/>
+          <child link="r_arm_end_link"/>
+        </joint> 
+
+	<!-- right end effector link -->
+        <link name="r_arm_end_link">
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.01 0.01 0.01" />
+      	    </geometry>
+      	    <material name="red"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+      	    <mass value="0.001"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+    	  </inertial>
+        </link>
+
+    </xacro:macro>
+
+</robot>

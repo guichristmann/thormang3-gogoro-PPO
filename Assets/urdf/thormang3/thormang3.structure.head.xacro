@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">	
+
+    <xacro:property name="pi" value="3.141592654" />
+
+    <xacro:macro name="thormang3_head" params="parent">
+
+	<!-- head yaw joint -->
+        <joint name="head_y" type="revolute">
+          <axis xyz="0 0 1" />		
+          <origin xyz="0.0 0.0 0.229" rpy="0 0 0"/>
+          <parent link="${parent}"/>
+          <child link="head_y_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.5}" upper="${pi*0.5}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="head_y" />
+
+	<!-- head yaw link -->
+        <link name="head_y_link">
+            <!--
+    	  <collision>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.07 0.1 0.1" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_head_y_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+      	    <mass value="1.0"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" /> 
+    	  </inertial>
+        </link>
+
+	<!-- head pitch joint -->
+        <joint name="head_p" type="revolute">
+          <axis xyz="0 1 0" />		
+          <origin xyz="0.0 -0.045 0.039" rpy="0 0 0"/>
+          <parent link="head_y_link"/>
+          <child link="head_p_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.5}" upper="${pi*0.5}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="head_p" />
+
+	<!-- head pitch link -->
+        <link name="head_p_link">
+            <!--
+    	  <collision>
+      	    <origin xyz="0.01 0.045 0.06" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.13 0.15 0.15" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_head_p_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+      	    <mass value="1.0"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" /> 
+    	  </inertial>
+        </link>
+
+	<!-- camera joint -->
+        <joint name="cam" type="fixed">
+            <!--<origin xyz="0.0682 0.045 0.056" rpy="${-pi*0.5} 0 ${-pi*0.5}"/> -->
+          <origin xyz="0.0682 0.045 0.056" rpy="0 0 0"/>
+          <parent link="head_p_link"/>
+          <child link="cam_link"/>
+        </joint> 
+
+	<!-- camera link -->
+        <link name="cam_link">
+        </link>
+
+	<!-- lidar joint -->
+        <joint name="lidar_fixed" type="fixed">
+          <origin xyz="0.0 0.045 0.10675" rpy="0 0 0"/>
+          <parent link="head_p_link"/>
+          <child link="lidar_link"/>
+        </joint> 
+
+	<!-- lidar link -->
+        <link name="lidar_link">
+        </link>
+
+	<!-- realsense joint -->
+        <joint name="realsense_fixed" type="fixed">
+	  <!--<origin xyz="0.0749 0.02 0.0292" rpy="0 0 0"/>--> 
+          <origin xyz="0.0529 -0.009 0.0292" rpy="0 0 0"/>
+          <parent link="head_p_link"/>
+          <child link="realsense_link"/>
+        </joint> 
+
+	<!-- realsense link -->
+        <link name="realsense_link">
+        </link>
+
+    </xacro:macro>
+
+
+</robot>

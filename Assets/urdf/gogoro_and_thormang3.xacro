@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<robot name="gogoro_and_thormang3" xmlns:xacro="https://www.ros.org/wiki/xacro">
+    
+    <!-- Import Gogoro and Thormang3 model -->
+    <xacro:include filename="$(find gogoro_description)/urdf/thormang3_gogoro.xacro"/>
+    <xacro:include filename="$(find gogoro_description)/urdf/gogoro.urdf"/>
+
+    <!-- Connect Thormang3 pelvis to Gogoro's body -->
+
+    <joint name="thormang3_fixed_gogoro" type="fixed">
+        <origin xyz="0 0 -.9" rpy="0 0 0"/>
+        <parent link="pelvis_link"/>
+        <child link="body"/>
+    </joint>
+    
+</robot>

@@ -1,0 +1,556 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">	
+
+    <xacro:property name="pi" value="3.141592654" />
+
+    <xacro:macro name="thormang3_l_leg" params="parent">
+
+	<!-- left hip yaw joint -->
+        <joint name="l_leg_hip_y" type="revolute">
+          <axis xyz="0 0 -1" />		
+          <origin xyz="0.0 0.093 -0.018" rpy="0 0 0"/>
+          <parent link="${parent}"/>
+          <child link="l_leg_hip_y_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.45}" upper="${pi*0.45}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="l_leg_hip_y" />
+
+	<!-- left hip yaw link -->
+        <link name="l_leg_hip_y_link">
+            <!--
+    	  <collision>
+      	    <origin xyz="-0.01 0 -0.05" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.17 0.07 0.1" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_l_leg_hip_y_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="0.012 0.000 -0.025" rpy="0 0 0"/>
+      	    <mass value="0.243"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" /> 
+    	    <!-- <inertia ixx="0.00024" ixy="0.0" ixz="0.0" iyy="0.00101" iyz="0.0" izz="0.00092" /> -->
+	  </inertial>
+        </link>
+
+	<!-- left hip roll joint -->
+        <joint name="l_leg_hip_r" type="revolute">
+          <axis xyz="-1 0 0" />		
+          <origin xyz="0.057 0.0 -0.075" rpy="0 0 0"/>
+          <parent link="l_leg_hip_y_link"/>
+          <child link="l_leg_hip_r_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.2}" upper="${pi*0.3}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="l_leg_hip_r" />
+
+	<!-- left hip roll link -->
+        <link name="l_leg_hip_r_link">
+<!--
+    	  <collision>
+      	    <origin xyz="-0.057 0 0" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.01 0.01 0.01" />
+      	    </geometry>
+    	  </collision>
+-->
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_l_leg_hip_r_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="-0.068 0.000 0.000" rpy="0 0 0"/>
+      	    <mass value="1.045"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <!-- <inertia ixx="0.00056" ixy="0.0" ixz="0.0" iyy="0.00168" iyz="0.0" izz="0.00171" /> --> 
+    	  </inertial>
+        </link>
+
+	<!-- left hip pitch joint -->
+        <joint name="l_leg_hip_p" type="revolute">
+          <axis xyz="0 1 0" />		
+          <origin xyz="-0.057 0.033 0.0" rpy="0 0 0"/>
+          <parent link="l_leg_hip_r_link"/>
+          <child link="l_leg_hip_p_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.4}" upper="${pi*0.4}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="l_leg_hip_p" />
+
+	<!-- left hip pitch link -->
+        <link name="l_leg_hip_p_link">
+            <!--
+    	  <collision>
+      	    <origin xyz="0 -0.005 -0.145" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.11 0.16 0.33" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_l_leg_hip_p_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="0.022 -0.007 -0.168" rpy="0 0 0"/>
+      	    <mass value="3.095"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" /> 
+            <!-- <inertia ixx="0.04328" ixy="0.00028" ixz="0.00288" iyy="0.04042" iyz="-0.00202" izz="0.00560" /> -->
+    	  </inertial>
+        </link>
+
+	<!-- left knee pitch joint -->
+        <joint name="l_leg_kn_p" type="revolute">
+          <axis xyz="0 1 0" />		
+          <origin xyz="0.0 0.06 -0.3" rpy="0 0 0"/>
+          <parent link="l_leg_hip_p_link"/>
+          <child link="l_leg_kn_p_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.1}" upper="${pi*0.7}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="l_leg_kn_p" />
+
+	<!-- left knee pitch link -->
+        <link name="l_leg_kn_p_link">
+            <!--
+    	  <collision>
+      	    <origin xyz="0.01 -0.065 -0.145" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.11 0.16 0.33" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_l_leg_kn_p_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="-0.002 -0.066 -0.183" rpy="0 0 0"/>
+      	    <mass value="2.401"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <!-- <inertia ixx="0.01971" ixy="0.00031" ixz="-0.00294" iyy="0.01687" iyz="0.00140" izz="0.00574" /> -->
+    	  </inertial>
+        </link>
+
+	<!-- left ankle pitch joint -->
+        <joint name="l_leg_an_p" type="revolute">
+          <axis xyz="0 -1 0" />		
+          <origin xyz="-0.0 -0.06 -0.3" rpy="0 0 0"/>
+          <parent link="l_leg_kn_p_link"/>
+          <child link="l_leg_an_p_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.45}" upper="${pi*0.45}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="l_leg_an_p" />
+
+	<!-- left ankle pitch link -->
+        <link name="l_leg_an_p_link">
+<!--
+    	  <collision>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.01 0.01 0.01" />
+      	    </geometry>
+    	  </collision>
+-->
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_l_leg_an_p_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="-0.011 -0.033 0.000" rpy="0 0 0"/>
+      	    <mass value="1.045"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <!-- <inertia ixx="0.00056" ixy="0.0" ixz="0.0" iyy="0.00168" iyz="0.0" izz="0.00171" /> --> 
+    	  </inertial>
+        </link>
+
+	<!-- left ankle roll joint -->
+        <joint name="l_leg_an_r" type="revolute">
+          <axis xyz="1 0 0" />		
+          <origin xyz="0.057 -0.033 0.0" rpy="0 0 0"/>
+          <parent link="l_leg_an_p_link"/>
+          <child link="l_leg_an_r_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.5}" upper="${pi*0.4}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="l_leg_an_r" />
+
+	<!-- left ankle roll link -->
+        <link name="l_leg_an_r_link">
+            <!--
+    	  <collision>
+      	    <origin xyz="-0.067 0 -0.02" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.17 0.06 0.12" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_l_leg_an_r_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="-0.070 0.000 -0.048" rpy="0 0 0"/>
+      	    <mass value="0.223"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" /> 
+            <!-- <inertia ixx="0.00022" ixy="0.0" ixz="-0.00001" iyy="0.00099" iyz="0.0" izz="0.00091" /> -->
+    	  </inertial>
+        </link>
+
+	<!-- left ft joint -->
+        <joint name="l_leg_ft" type="fixed">
+          <origin xyz="-0.057 0.0 -0.087" rpy="0 0 0"/>
+          <parent link="l_leg_an_r_link"/>
+          <child link="l_leg_foot_link"/>
+        </joint> 
+
+	<!-- left foot link -->
+        <link name="l_leg_foot_link">
+            <!--
+    	  <collision>
+      	    <origin xyz="0 0.014 -0.02" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.22 0.15 0.015" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_l_leg_foot.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="0.000 0.009 -0.013" rpy="0 0 0"/>
+      	    <mass value="1.689"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" /> 
+            <!-- <inertia ixx="0.00219" ixy="0.0" ixz="0.0" iyy="0.00433" iyz="0.00011" izz="0.00609" /> -->
+    	  </inertial>
+        </link>
+
+	<!-- left ft fixed joint -->
+        <joint name="l_leg_ft_fixed" type="fixed">
+          <origin xyz="0.0 0.0 0.0" rpy="${pi} 0 0"/>
+          <parent link="l_leg_foot_link"/>
+          <child link="l_foot_ft_link"/>
+        </joint> 
+
+	<!-- left foot ft link -->
+        <link name="l_foot_ft_link">
+        </link>
+
+    </xacro:macro>
+
+    <xacro:macro name="thormang3_r_leg" params="parent">
+
+	<!-- right hip yaw joint -->
+        <joint name="r_leg_hip_y" type="revolute">
+          <axis xyz="0 0 -1" />		
+          <origin xyz="0.0 -0.093 -0.018" rpy="0 0 0"/>
+          <parent link="${parent}"/>
+          <child link="r_leg_hip_y_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.45}" upper="${pi*0.45}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="r_leg_hip_y" />
+
+	<!-- right hip yaw link -->
+        <link name="r_leg_hip_y_link">
+            <!--
+    	  <collision>
+      	    <origin xyz="-0.01 0 -0.05" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.17 0.07 0.1" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_r_leg_hip_y_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="-0.012 0.000 -0.025" rpy="0 0 0"/>
+      	    <mass value="0.243"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <!-- <inertia ixx="0.00024" ixy="0.0" ixz="0.0" iyy="0.00101" iyz="0.0" izz="0.00092" /> -->
+    	  </inertial>
+        </link>
+
+	<!-- right hip roll joint -->
+        <joint name="r_leg_hip_r" type="revolute">
+          <axis xyz="-1 0 0" />		
+          <origin xyz="0.057 0.0 -0.075" rpy="0 0 0"/>
+          <parent link="r_leg_hip_y_link"/>
+          <child link="r_leg_hip_r_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.3}" upper="${pi*0.2}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="r_leg_hip_r" />
+
+	<!-- right hip roll link -->
+        <link name="r_leg_hip_r_link">
+<!--
+    	  <collision>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.01 0.01 0.01" />
+      	    </geometry>
+    	  </collision>
+-->
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_r_leg_hip_r_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="-0.068 0.000 0.000" rpy="0 0 0"/>
+      	    <mass value="1.045"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" /> 
+            <!-- <inertia ixx="0.00056" ixy="0.0" ixz="0.0" iyy="0.00168" iyz="0.0" izz="0.00171" /> --> 
+    	  </inertial>
+        </link>
+
+	<!-- right hip pitch joint -->
+        <joint name="r_leg_hip_p" type="revolute">
+          <axis xyz="0 -1 0" />		
+          <origin xyz="-0.057 -0.033 0.0" rpy="0 0 0"/>
+          <parent link="r_leg_hip_r_link"/>
+          <child link="r_leg_hip_p_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.4}" upper="${pi*0.4}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="r_leg_hip_p" />
+
+	<!-- right hip pitch link -->
+        <link name="r_leg_hip_p_link">
+            <!--
+    	  <collision>
+      	    <origin xyz="0 0.005 -0.145" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.11 0.16 0.33" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_r_leg_hip_p_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="0.022 0.007 -0.168" rpy="0 0 0"/>
+      	    <mass value="3.095"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <!-- <inertia ixx="0.04328" ixy="-0.00027" ixz="0.00286" iyy="0.04042" iyz="-0.00202" izz="0.00560" /> -->
+    	  </inertial>
+        </link>
+
+	<!-- right knee pitch joint -->
+        <joint name="r_leg_kn_p" type="revolute">
+          <axis xyz="0 -1 0" />		
+          <origin xyz="0.0 -0.06 -0.3" rpy="0 0 0"/>
+          <parent link="r_leg_hip_p_link"/>
+          <child link="r_leg_kn_p_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.7}" upper="${pi*0.1}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="r_leg_kn_p" />
+
+	<!-- right knee pitch link -->
+        <link name="r_leg_kn_p_link">
+            <!--
+    	  <collision>
+      	    <origin xyz="0.01 0.065 -0.145" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.11 0.16 0.33" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_r_leg_kn_p_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="-0.002 0.066 -0.183" rpy="0 0 0"/>
+      	    <mass value="2.401"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" /> 
+            <!-- <inertia ixx="0.01971" ixy="-0.00031" ixz="-0.00294" iyy="0.01687" iyz="-0.00140" izz="0.00574" /> -->
+    	  </inertial>
+        </link>
+
+	<!-- right ankle pitch joint -->
+        <joint name="r_leg_an_p" type="revolute">
+          <axis xyz="0 1 0" />		
+          <origin xyz="-0.0 0.06 -0.3" rpy="0 0 0"/>
+          <parent link="r_leg_kn_p_link"/>
+          <child link="r_leg_an_p_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.45}" upper="${pi*0.45}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="r_leg_an_p" />
+
+	<!-- right ankle pitch link -->
+        <link name="r_leg_an_p_link">
+<!--
+    	  <collision>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.01 0.01 0.01" />
+      	    </geometry>
+    	  </collision>
+-->
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_r_leg_an_p_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="-0.011 0.033 0.000" rpy="0 0 0"/>
+      	    <mass value="1.045"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" /> 
+            <!-- <inertia ixx="0.00056" ixy="0.0" ixz="0.0" iyy="0.00168" iyz="0.0" izz="0.00171" /> --> 
+    	  </inertial>
+        </link>
+
+	<!-- right ankle roll joint -->
+        <joint name="r_leg_an_r" type="revolute">
+          <axis xyz="1 0 0" />		
+          <origin xyz="0.057 0.033 0.0" rpy="0 0 0"/>
+          <parent link="r_leg_an_p_link"/>
+          <child link="r_leg_an_r_link"/>
+          <limit velocity="6.5" effort="1000" lower="${-pi*0.45}" upper="${pi*0.45}" />
+          <dynamics damping="0.1" friction="0.0" />
+        </joint> 
+        <xacro:insert_transmission name="r_leg_an_r" />
+
+	<!-- right ankle roll link -->
+        <link name="r_leg_an_r_link">
+            <!--
+    	  <collision>
+      	    <origin xyz="-0.067 0 -0.02" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.17 0.06 0.12" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_r_leg_an_r_link.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="-0.070 0.000 -0.048" rpy="0 0 0"/>
+      	    <mass value="0.223"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" /> 
+            <!-- <inertia ixx="0.00022" ixy="0.0" ixz="-0.00001" iyy="0.00099" iyz="0.0" izz="0.00091" /> -->
+    	  </inertial>
+        </link>
+
+	<!-- right ft joint -->
+        <joint name="r_leg_ft" type="fixed">
+          <origin xyz="-0.057 0.0 -0.087" rpy="0 0 0"/>
+          <parent link="r_leg_an_r_link"/>
+          <child link="r_leg_foot_link"/>
+        </joint> 
+
+	<!-- right foot link -->
+        <link name="r_leg_foot_link">
+            <!--
+    	  <collision>
+      	    <origin xyz="0 -0.014 -0.02" rpy="0 0 0"/>
+      	    <geometry>
+              <box size="0.22 0.15 0.015" />
+      	    </geometry>
+    	  </collision>
+            -->
+
+   	  <visual>
+      	    <origin xyz="0 0 0" rpy="0 0 0"/>
+      	    <geometry>
+                <mesh filename="package://gogoro_description/meshes/thormang3/robotis_r_leg_foot.stl" scale="0.001 0.001 0.001"/>
+      	    </geometry>
+      	    <material name="grey"/>
+    	  </visual>
+
+          <inertial>
+      	    <origin xyz="0.000 -0.009 -0.013" rpy="0 0 0"/>
+      	    <mass value="1.689"/>
+      	    <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <!-- <inertia ixx="0.00219" ixy="0.0" ixz="0.0" iyy="0.00433" iyz="-0.00011" izz="0.00609" /> -->
+    	  </inertial>
+        </link>
+
+	<!-- right ft fixed joint -->
+        <joint name="r_leg_ft_fixed" type="fixed">
+          <origin xyz="0.0 0.0 0.0" rpy="${pi} 0 0"/>
+          <parent link="r_leg_foot_link"/>
+          <child link="r_foot_ft_link"/>
+        </joint> 
+
+	<!-- right foot ft link -->
+        <link name="r_foot_ft_link">
+        </link>
+
+    </xacro:macro>
+
+</robot>
