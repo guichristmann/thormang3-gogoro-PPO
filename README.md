@@ -8,13 +8,11 @@ Agent being controlled with a joystick:
 
 ### Training Details
 
-The goal of the agent was to follow a target $\dot{\theta}$ command, that is an intended turning rate, such as 15 degrees per second. The agent's only action was turning the steering joint of the scooter.
+The goal of the agent was to follow a target <img src="https://render.githubusercontent.com/render/math?math=\dot{\theta}"> command, that is an intended turning rate, such as 15 degrees per second. The agent's only action was turning the steering joint of the scooter.
 
-The agent received more reward the closer it got to the target $\dot{\theta}$ according to the following equation:
-$$
-R = 1.0 - |\dot{\theta} - {\dot{\theta}}^{targ}|^\frac{1}{5},
-$$
-where $R$ is the reward, $\dot{\theta}$ is the current turning rate and $\dot{\theta}^{targ}$ is the target turning rate. This way, the agent received a maximum reward of $+1$ for perfectly matching the command. The agent was not explicitly rewarded for balancing, but was punished with a value of $-2$ for falling over (a tilt angle of over 60 degrees).
+The agent received more reward the closer it got to the target <img src="https://render.githubusercontent.com/render/math?math=\dot{\theta}"> according to the following equation:
+<img src="https://render.githubusercontent.com/render/math?math=R = 1.0 - |\dot{\theta} - {\dot{\theta}}^{targ}|^\frac{1}{5},">
+where <img src="https://render.githubusercontent.com/render/math?math=R"> is the reward, <img src="https://render.githubusercontent.com/render/math?math=\dot{\theta}"> is the current turning rate and <img src="https://render.githubusercontent.com/render/math?math=\dot{\theta}^{targ}"> is the target turning rate. This way, the agent received a maximum reward of +<img src="https://render.githubusercontent.com/render/math?math=1"> for perfectly matching the command. The agent was not explicitly rewarded for balancing, but was punished with a value of <img src="https://render.githubusercontent.com/render/math?math=-2"> for falling over (a tilt angle of over 60 degrees).
 
 Observation space (12 observations, 1 being the command):
 
@@ -23,11 +21,11 @@ Observation space (12 observations, 1 being the command):
 * 3 x Orientation (roll, pitch, yaw);
 * 3 x Angular velocities;
 * 3 x Linear velocities;
-* **Target $\dot{\theta}$ -- command.** 
+* **Target <img src="https://render.githubusercontent.com/render/math?math=\dot{\theta}"> -- command.** 
 
 Action space was 1: Set angle of steering joint.
 
-During training, every 2.5 seconds (of simulation time) the target $\dot{\theta}$ command is offset by a random, uniformly sampled value between $-5.7$ and $+5.7$ degrees. Every time the environment is reset a new random velocity is set. 
+During training, every 2.5 seconds (of simulation time) the target <img src="https://render.githubusercontent.com/render/math?math=\dot{\theta}"> command is offset by a random, uniformly sampled value between <img src="https://render.githubusercontent.com/render/math?math=-5.7"> and +<img src="https://render.githubusercontent.com/render/math?math=5.7"> degrees. Every time the environment is reset a new random velocity is set. 
 
 The agent was trained with PPO using the NVIDIA Isaac Gym simulator. Training for ~6 million timesteps takes about 3 hours of real-time on a single RTX 2080 Super.
 
